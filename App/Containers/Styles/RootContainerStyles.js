@@ -20,5 +20,8 @@ export default StyleSheet.create({
     width: 200,
     height: 200,
     alignSelf: 'center'
-  }
+  },
+  
 })
+
+var statusbarBackground = "#ad1"

@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import StartupActions from '../Redux/StartupRedux'
 import ReduxPersist from '../Config/ReduxPersist'
 
+
 // Styles
 import styles from './Styles/RootContainerStyles'
 
@@ -17,12 +18,10 @@ class RootContainer extends Component {
   }
 
   render () {
-    return (
-      <View style={styles.applicationView}>
-        <StatusBar barStyle='light-content' />
+    return <View style={styles.applicationView}>
+        <StatusBar barStyle="light-content" backgroundColor="#5a5aff" />
         <ReduxNavigation />
       </View>
-    )
   }
 }
 

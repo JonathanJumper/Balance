@@ -9,6 +9,7 @@ const ApplicationStyles = {
   screen: {
     mainContainer: {
       flex: 1,
+      flexGrow: 1,
       backgroundColor: Colors.transparent
     },
     backgroundImage: {
@@ -20,6 +21,7 @@ const ApplicationStyles = {
     },
     container: {
       flex: 1,
+      flexGrow: 1,
       paddingTop: Metrics.baseMargin,
       backgroundColor: Colors.transparent
     },
