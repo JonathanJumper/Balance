@@ -12,8 +12,11 @@ export default StyleSheet.create({
   },
   body: {
      flex: 0.75,
-     backgroundColor: "#ffffff",
-     justifyContent: 'flex-end'
+     justifyContent: 'flex-end',
+     backgroundColor: '#ffffff'
+  },
+  scrollContainer: {
+    flex: 1
   },
   textInput: {
     height: 50,
