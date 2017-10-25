@@ -2,6 +2,8 @@ const colors = {
   background: '#1F0808',
   primary: '#5a5aff',
   accent: '#66FF66',
+  chartFill: "#ffffff",
+  chartStroke: "#5a5aff99",
   clear: 'rgba(0,0,0,0)',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',

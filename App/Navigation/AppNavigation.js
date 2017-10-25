@@ -72,7 +72,7 @@ const HomeNavigation = TabNavigator(
     SettingsScreen: {
       screen: SettingsScreen,
       navigationOptions: {
-        tabBarLabel: "Configurar",
+        tabBarLabel: "Config",
         tabBarIcon: ({ tintColor, focused }) => (
           <Icon
             name={focused ? "ios-settings" : "ios-settings-outline"}
