@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text } from 'react-native'
+import { Header } from "react-native-elements"
 import { connect } from 'react-redux'
 import List from "./Statistic/List"
 import Chart from "./Statistic/Chart"
@@ -9,13 +10,20 @@ import Chart from "./Statistic/Chart"
 
 // Styles
 import styles from './Styles/HomeScreenStyle'
+import colors from '../Themes/Colors'
 
 class HomeScreen extends Component {
   render () {
     const { navigate } = this.props.navigation;
     return <View style={styles.homeContainer}>
-        <Chart></Chart>
-        <List></List>
+        <Header  
+          backgroundColor={colors.primary}
+          leftComponent={{ icon: "ios-finger-print", type: "ionicon", color: '#fff' }}
+          centerComponent={{ text: 'Estadisticas', style: { color: '#fff' } }}
+          rightComponent={{ icon: "calculator", type: "font-awesome", color: '#fff' }}
+        />
+        <Chart />
+        <List />
       </View>
   }
 }

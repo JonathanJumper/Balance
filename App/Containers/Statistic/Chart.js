@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { StyleSheet, View } from "react-native"
-import Line from "../../Components/Statistic/line"
+import Line from "../../Components/Statistic/Line"
 import { Colors } from "../../Themes/"
 import styles from "./Styles/ChartStyle"
 
