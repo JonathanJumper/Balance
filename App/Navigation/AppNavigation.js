@@ -90,10 +90,10 @@ const HomeNavigation = TabNavigator(
     swipeEnabled: true,
     tabBarOptions: {
         showIcon: true,
-        activeTintColor: Colors.primary,
-        inactiveTintColor:'#999999',
+        activeTintColor: "#fff",
+        inactiveTintColor:'#aaa',
         style: {
-            backgroundColor: "#ffffff",
+            backgroundColor: Colors.primary,
         },
         indicatorStyle: {
             backgroundColor: 'white'

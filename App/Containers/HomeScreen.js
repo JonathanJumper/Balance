@@ -17,10 +17,10 @@ class HomeScreen extends Component {
     const { navigate } = this.props.navigation;
     return <View style={styles.homeContainer}>
         <Header  
-          backgroundColor={colors.primary}
-          leftComponent={{ icon: "ios-finger-print", type: "ionicon", color: '#fff' }}
-          centerComponent={{ text: 'Estadisticas', style: { color: '#fff' } }}
-          rightComponent={{ icon: "calculator", type: "font-awesome", color: '#fff' }}
+          backgroundColor={ "#fff" }
+          leftComponent={{ icon: "ios-finger-print", type: "ionicon", color: colors.primary }}
+          centerComponent={{ text: 'Estadisticas', style: { color: colors.primary } }}
+          rightComponent={{ icon: "calculator", type: "font-awesome", color: colors.primary }}
         />
         <Chart />
         <List />
