@@ -1,5 +1,7 @@
 import React from "react"
 import { StackNavigator, TabNavigator } from 'react-navigation'
+import MeasureScreen from '../Containers/MeasureScreen'
+import CalculateScreen from '../Containers/CalculateScreen'
 import GuideScreen from '../Containers/GuideScreen'
 import SettingsScreen from '../Containers/SettingsScreen'
 import StockScreen from '../Containers/StockScreen'
@@ -28,7 +30,7 @@ const LoginNavigation = StackNavigator(
 );
 
 // Tab navigation for Home and Settings screens
-const HomeNavigation = TabNavigator(
+const MainNavigation = TabNavigator(
   {
     HomeScreen: {
       screen: HomeScreen,
@@ -101,5 +103,20 @@ const HomeNavigation = TabNavigator(
     }
   }
 );
+
+const HomeNavigation = StackNavigator(
+  {
+    Home: { screen: MainNavigation, },
+    MeasureScreen: { screen: MeasureScreen },
+    CalculateScreen: { screen: CalculateScreen }
+  },
+  {
+  // In modal mode screen slides up from the bottom
+    mode: 'modal',
+    // No headers for modals. Otherwise we'd have two headers on the screen, one for stack, one for modal.
+    headerMode: 'none',
+  }
+)
+
 
 export default HomeNavigation
