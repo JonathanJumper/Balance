@@ -13,23 +13,6 @@ import Icon from "react-native-vector-icons/Ionicons"
 import { Colors } from "../Themes/"
 import styles from './Styles/NavigationStyles'
 
-// Manifest of possible screens
-const LoginNavigation = StackNavigator(
-  {
-    SettingsScreen: { screen: SettingsScreen },
-    StockScreen: { screen: StockScreen },
-    HomeScreen: { screen: HomeScreen },
-    LoginScreen: { screen: LoginScreen },
-    LaunchScreen: { screen: LaunchScreen }
-  }, 
-  // Default config for all screens
-  {
-    headerMode: 'none',
-    initialRouteName: "LoginScreen"
-  }
-);
-
-// Tab navigation for Home and Settings screens
 const MainNavigation = TabNavigator(
   {
     HomeScreen: {
@@ -104,8 +87,9 @@ const MainNavigation = TabNavigator(
   }
 );
 
-const HomeNavigation = StackNavigator(
+const LoginNavigation = StackNavigator(
   {
+    LoginScreen: { screen: LoginScreen },
     Home: { screen: MainNavigation, },
     MeasureScreen: { screen: MeasureScreen },
     CalculateScreen: { screen: CalculateScreen }
@@ -119,4 +103,4 @@ const HomeNavigation = StackNavigator(
 )
 
 
-export default HomeNavigation
+export default LoginNavigation
