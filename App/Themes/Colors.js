@@ -5,6 +5,7 @@ const colors = {
   chartFill: "#5a5aff",
   chartStroke: "#9C9CFF",
   chartBg: "#fff",
+  chartAxis: 'rgba(200,0,200, 0.3)',
   clear: 'rgba(0,0,0,0)',
   facebook: '#3b5998',
   transparent: 'rgba(0,0,0,0)',

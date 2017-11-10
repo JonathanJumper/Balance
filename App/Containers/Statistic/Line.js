@@ -2,32 +2,52 @@
 import React, { Component } from "react"
 import { Dimensions, LayoutAnimation, StyleSheet, View } from "react-native"
 import { Group, Path, Surface, Shape } from "react-native/Libraries/ART/ReactNativeART"
+import colors from "../../Themes/Colors"
+
 
 export default class Line extends Component {
   props: {
     values: Array<number>,
     fillColor: string,
     strokeColor: string,
+    axisColor: string,
     strokeWidth: number
   }
 
   static defaultProps = {
     fillColor: "#fff", // solid violet color
     strokeColor: "#ccc", // semi-transparent violet
-    strokeWidth: 4
+    axisColor: colors.chartAxis, // semi-transparent violet
+    fillColor: colors.chartFill,
+    strokeColor: colors.chartStroke,
+    strokeWidth: 4,
+    bottomAxis: 70,
+    topAxis: 150
   }
 
-  state = {
-    // set initial width to screen width so when animated it stays constant,
-    // try setting it to zero and see what happens on initial load
-    width: Dimensions.get("window").width,
-    // set initial height to zero so when updated to actual height and
-    // animated, the chart raises from the bottom to the top of the container
-    height: 0
+  constructor(props) {
+    super(props);
+    this.state = { 
+      width: Dimensions.get("window").width, 
+      height: 0,
+      minValue: 30, 
+      maxValue: ((Math.max(...props.values) - 40) + 10),
+      stepX: 0,
+      stepY: 0
+    };
   }
 
   componentWillUpdate() {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    LayoutAnimation.configureNext({
+      duration: 700,
+      create: {
+        type: LayoutAnimation.Types.linear,
+        property: LayoutAnimation.Properties.opacity,
+      },
+      update: {
+        type: LayoutAnimation.Types.easeInEaseOut,
+      },
+    })
   }
 
   // Handle container view's onLayout event to get its width and height after rendered and
@@ -35,33 +55,30 @@ export default class Line extends Component {
   onLayout = (event: Object) => {
     // pull out width and height out of event.nativeEvent.layout
     const { nativeEvent: { layout: { width, height } } } = event
+    // step between each value point on horizontal (x) axis
+    stepX = width / (this.props.values.length - 1 || 1)
+    // step between each value point on vertical (y) axis
+    stepY = this.state.maxValue ? (height - this.props.strokeWidth * 2) / this.state.maxValue : 0,
     // update the state
     this.setState({
       width,
-      height
+      height,
+      stepX,
+      stepY
     })
   }
 
-  buildPath = (values: Array<number>): Path => {
+  buildGraphPath = (values: Array<number>): Path => {
     const { strokeWidth } = this.props
-    const { width, height } = this.state
+    const { width, height, minValue, maxValue, stepX, stepY } = this.state
 
-    let firstPoint: boolean = true,
-      // holds x and y coordinates of the previous point when iterating
-      previous: { x: number, y: number }
-
-    const minValue = Math.min(...values),
-      maxValue = Math.max(...values) - minValue,
-      // step between each value point on horizontal (x) axis
-      stepX = width / (values.length - 1 || 1),
-      // step between each value point on vertical (y) axis
-      stepY = maxValue ? (height - strokeWidth * 2) / maxValue : 0,
-      // adjust values so that min value becomes 0 and goes to the bottom edge
-      adjustedValues = values.map(value => value - minValue)
-
-    let path = Path()
-      // start from the left bottom corner so we could fill the area with color
-      .moveTo(-strokeWidth, strokeWidth)
+    let firstPoint: boolean = true
+    // holds x and y coordinates of the previous point when iterating
+    let previous: { x: number, y: number }
+    // adjust values so that min value becomes 0 and goes to the bottom edge
+    const adjustedValues = values.map(value => value - minValue)
+    // start from the left bottom corner so we could fill the area with color
+    let path = Path().moveTo(-strokeWidth, strokeWidth)
 
     adjustedValues.forEach((number, index) => {
       let x = index * stepX,
@@ -86,18 +103,46 @@ export default class Line extends Component {
     )
   }
 
+  buildTopAxisPath = (values: Array<number>): Path => {
+    const { topAxis } = this.props
+    const { width, height, minValue, maxValue, stepX, stepY } = this.state
+    return (
+      Path().moveTo(0, (topAxis - minValue) * -stepY).lineTo(width, (topAxis - minValue) * -stepY).close()
+    )
+  }
+
+  buildBottomAxisPath = (values: Array<number>): Path => {
+    const { bottomAxis } = this.props
+    const { width, height, minValue, maxValue, stepX, stepY } = this.state
+    return (
+      Path().moveTo(0, (bottomAxis - minValue) * -stepY).lineTo(width, (bottomAxis - minValue) * -stepY).close()
+    )
+  }
+
   render() {
-    const { values, fillColor, strokeColor, strokeWidth } = this.props
+    const { values, fillColor, strokeColor, strokeWidth, axisColor } = this.props
     const { width, height } = this.state
     return (
       <View style={styles.container} onLayout={this.onLayout}>
         <Surface width={width} height={height}>
           <Group x={0} y={height}>
             <Shape
-              d={this.buildPath(values)}
+              d={this.buildGraphPath(values)}
               fill={fillColor}
               stroke={strokeColor}
-              strokeWidth={strokeWidth}
+              strokeWidth={0}
+            />
+            <Shape
+              d={this.buildTopAxisPath(values)}
+              stroke={axisColor}
+              strokeWidth={1}
+              strokeDash= {[5, 10]}
+            />
+            <Shape
+              d={this.buildBottomAxisPath(values)}
+              stroke={axisColor}
+              strokeWidth={1}
+              strokeDash={[5, 10]}
             />
           </Group>
         </Surface>
