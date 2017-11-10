@@ -88,9 +88,10 @@ const MainNavigation = TabNavigator(
 );
 
 const LoginNavigation = StackNavigator(
-  {
-    LoginScreen: { screen: LoginScreen },
+  { 
+    //LaunchScreen: { screen: LaunchScreen},
     Home: { screen: MainNavigation, },
+    LoginScreen: { screen: LoginScreen },
     MeasureScreen: { screen: MeasureScreen },
     CalculateScreen: { screen: CalculateScreen }
   },

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { Header } from "react-native-elements"
-import Icon from "react-native-vector-icons/Ionicons"
+import HeaderButton from "../Components/HeaderButton"
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -16,7 +16,7 @@ class CalculateScreen extends Component {
     const { navigate } = this.props.navigation
     return <ScrollView style={styles.container}>
         <Header backgroundColor={"#fff"}
-          leftComponent={<Icon name="ios-arrow-back" type="ionicon" size={26} onPress={() => navigate("HomeScreen")} style={{ color: colors.primary }} />}
+          leftComponent={<HeaderButton iconName="ios-arrow-back" onPress={() => navigate('HomeScreen')} />}
           centerComponent={{ text: "Calcular Toma", style: { color: colors.primary } }}
         />
       </ScrollView>

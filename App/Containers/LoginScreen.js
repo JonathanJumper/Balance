@@ -20,7 +20,7 @@ class LoginScreen extends Component {
           <TextInput placeholder="Email" keyboardType="email-address" autoCapitalize="none" underlineColorAndroid="transparent" autoCorrect={false} style={styles.textInput} />
           <TextInput placeholder="Password" secureTextEntry underlineColorAndroid="transparent" style={styles.textInput} />
           <RoundedButton onPress={() => navigate("HomeScreen")}>Iniciar Sesión</RoundedButton>
-          <RoundedButton>Crear Usario</RoundedButton>
+          <RoundedButton style={{ backgroundColor: '#10f1f0' } }>Crear Usario</RoundedButton>
         </View>
       </KeyboardAvoidingView>
   }
