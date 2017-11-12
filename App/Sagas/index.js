@@ -7,6 +7,7 @@ import DebugConfig from '../Config/DebugConfig'
 
 import { StartupTypes } from '../Redux/StartupRedux'
 import { GithubTypes } from '../Redux/GithubRedux'
+import { ValuesTypes } from '../Redux/ValuesRedux'
 
 /* ------------- Sagas ------------- */
 
@@ -28,5 +29,6 @@ export default function * root () {
 
     // some sagas receive extra parameters in addition to an action
     takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
+    //takeLatest(ValuesTypes.ADD_SUGAR_LEVEL, getUserAvatar, api)
   ])
 }

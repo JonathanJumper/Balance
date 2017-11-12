@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import { Dimensions, LayoutAnimation, StyleSheet, View } from "react-native"
 import { Group, Path, Surface, Shape } from "react-native/Libraries/ART/ReactNativeART"
 import colors from "../../Themes/Colors"
+import Icon from "react-native-vector-icons/Ionicons"
 
 
 export default class Line extends Component {
@@ -20,7 +21,7 @@ export default class Line extends Component {
     axisColor: colors.chartAxis, // semi-transparent violet
     fillColor: colors.chartFill,
     strokeColor: colors.chartStroke,
-    strokeWidth: 4,
+    strokeWidth: 1,
     bottomAxis: 70,
     topAxis: 150
   }
@@ -31,9 +32,11 @@ export default class Line extends Component {
       width: Dimensions.get("window").width, 
       height: 0,
       minValue: 30, 
-      maxValue: ((Math.max(...props.values) - 40) + 10),
+      // max sugar level - min value
+      maxValue: Math.max(...props.values.sugarValues) - 30,
       stepX: 0,
-      stepY: 0
+      stepY: 0,
+      execiseIconsXAxis: []
     };
   }
 
@@ -56,7 +59,7 @@ export default class Line extends Component {
     // pull out width and height out of event.nativeEvent.layout
     const { nativeEvent: { layout: { width, height } } } = event
     // step between each value point on horizontal (x) axis
-    stepX = width / (this.props.values.length - 1 || 1)
+    stepX = width / (this.props.values.sugarValues.length - 1 || 1)
     // step between each value point on vertical (y) axis
     stepY = this.state.maxValue ? (height - this.props.strokeWidth * 2) / this.state.maxValue : 0,
     // update the state
@@ -79,7 +82,8 @@ export default class Line extends Component {
     const adjustedValues = values.map(value => value - minValue)
     // start from the left bottom corner so we could fill the area with color
     let path = Path().moveTo(-strokeWidth, strokeWidth)
-
+    
+    let execiseIconsXAxis = []
     adjustedValues.forEach((number, index) => {
       let x = index * stepX,
         y = -number * stepY - strokeWidth
@@ -103,49 +107,64 @@ export default class Line extends Component {
     )
   }
 
-  buildTopAxisPath = (values: Array<number>): Path => {
-    const { topAxis } = this.props
-    const { width, height, minValue, maxValue, stepX, stepY } = this.state
+  buildAxisPath = (): Path => {
+    const { topAxis, bottomAxis, strokeWidth } = this.props
+    const { width, minValue, stepY } = this.state
     return (
-      Path().moveTo(0, (topAxis - minValue) * -stepY).lineTo(width, (topAxis - minValue) * -stepY).close()
+      Path().moveTo(0, -(topAxis - minValue) * stepY - strokeWidth).lineTo(width, -(topAxis - minValue) * stepY - strokeWidth)
+        .moveTo(0, -(bottomAxis - minValue) * stepY - strokeWidth).lineTo(width, -(bottomAxis - minValue) * stepY - strokeWidth).close()
     )
   }
 
-  buildBottomAxisPath = (values: Array<number>): Path => {
-    const { bottomAxis } = this.props
-    const { width, height, minValue, maxValue, stepX, stepY } = this.state
+
+  buildExerciseAxisPath = (values: Array<boolean>): Path => {
+    const { height, stepX } = this.state
+
+    let exerciseIconsXAxis = []
+    let path = Path()
+    values.forEach((flag, index) => {
+      if (flag) {
+        // straight line to the first point
+        let xAxis = index * stepX
+        path.moveTo(xAxis, -height).lineTo(xAxis, 0)
+        exerciseIconsXAxis.push(xAxis)
+      }
+    })
+    //this.setState(exerciseIconsXAxis)
     return (
-      Path().moveTo(0, (bottomAxis - minValue) * -stepY).lineTo(width, (bottomAxis - minValue) * -stepY).close()
+      path.close()
     )
   }
 
   render() {
     const { values, fillColor, strokeColor, strokeWidth, axisColor } = this.props
-    const { width, height } = this.state
+    const { width, height, execiseIconsXAxis } = this.state
     return (
       <View style={styles.container} onLayout={this.onLayout}>
         <Surface width={width} height={height}>
           <Group x={0} y={height}>
             <Shape
-              d={this.buildGraphPath(values)}
-              fill={fillColor}
-              stroke={strokeColor}
+              d={this.buildGraphPath(values.sugarValues)}
+              fill={colors.chartFill}
+              stroke={colors.chartStroke}
               strokeWidth={0}
             />
             <Shape
-              d={this.buildTopAxisPath(values)}
-              stroke={axisColor}
+              d={this.buildAxisPath()}
+              stroke={colors.chartSugarAxis}
               strokeWidth={1}
               strokeDash= {[5, 10]}
             />
             <Shape
-              d={this.buildBottomAxisPath(values)}
-              stroke={axisColor}
+              d={this.buildExerciseAxisPath(values.excerciseValues)}
+              stroke={colors.chartExcerciseAxis}
               strokeWidth={1}
               strokeDash={[5, 10]}
             />
           </Group>
         </Surface>
+        
+        <Icon name={"ios-walk"} size={16} style={{ backgroundColor: colors.primary, color: "#fff" }} />
       </View>
     )
   }
