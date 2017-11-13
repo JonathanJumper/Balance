@@ -12,7 +12,7 @@ import styles from './Styles/LoginScreenStyle'
 class LoginScreen extends Component {
   render () {
     const { navigate } = this.props.navigation
-    return <KeyboardAvoidingView style={styles.mainContainer}>
+    return <KeyboardAvoidingView style={styles.container}>
         <View style={styles.header}>
           <Image source={Images.balance} resizeMode="stretch" />
         </View>
@@ -20,7 +20,7 @@ class LoginScreen extends Component {
           <TextInput placeholder="Email" keyboardType="email-address" autoCapitalize="none" underlineColorAndroid="transparent" autoCorrect={false} style={styles.textInput} />
           <TextInput placeholder="Password" secureTextEntry underlineColorAndroid="transparent" style={styles.textInput} />
           <RoundedButton onPress={() => navigate("HomeScreen")}>Iniciar Sesión</RoundedButton>
-          <RoundedButton style={{ backgroundColor: '#10f1f0' } }>Crear Usario</RoundedButton>
+          <RoundedButton>Crear Usario</RoundedButton>
         </View>
       </KeyboardAvoidingView>
   }

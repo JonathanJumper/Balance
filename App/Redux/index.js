@@ -26,6 +26,5 @@ export default () => {
       })
     })
   }
-  store.dispatch(ValuesActions.addSugarLevel({level: 128, datetime: "2015-02"}))
   return store
 }

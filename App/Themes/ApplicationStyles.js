@@ -12,10 +12,10 @@ const ApplicationStyles = {
       flexGrow: 3,
       backgroundColor: Colors.transparent
     },
-    homeContainer: {
+    container: {
       flex: 1,
-      flexGrow: 3,
-      backgroundColor: Colors.primary
+      flexGrow: 1,
+      backgroundColor: Colors.silver
     },
     backgroundImage: {
       position: 'absolute',
@@ -24,22 +24,10 @@ const ApplicationStyles = {
       bottom: 0,
       right: 0
     },
-    container: {
-      flex: 1,
-      flexGrow: 1,
-      paddingTop: Metrics.baseMargin,
-      backgroundColor: Colors.transparent
-    },
-    section: {
-      margin: Metrics.section,
-      padding: Metrics.baseMargin
-    },
-    sectionText: {
-      ...Fonts.style.normal,
-      paddingVertical: Metrics.doubleBaseMargin,
-      color: Colors.snow,
-      marginVertical: Metrics.smallMargin,
-      textAlign: 'center'
+    titleText: {
+      ...Fonts.style.h2,
+      fontSize: 14,
+      color: Colors.text
     },
     subtitle: {
       color: Colors.snow,
@@ -47,10 +35,36 @@ const ApplicationStyles = {
       marginBottom: Metrics.smallMargin,
       marginHorizontal: Metrics.smallMargin
     },
-    titleText: {
-      ...Fonts.style.h2,
-      fontSize: 14,
-      color: Colors.text
+    section: {
+      margin: Metrics.section,
+      padding: Metrics.baseMargin
+    },
+    sectionText: {
+      ...Fonts.style.normal,
+      paddingVertical: Metrics.smallMargin,
+      color: Colors.darkText,
+      marginTop: Metrics.baseMargin,
+      marginHorizontal: Metrics.section,
+      textAlign: 'left'
+    },
+    textInput: {
+      height: 48,
+      marginHorizontal: Metrics.section,
+      marginTop: Metrics.baseMargin,
+      borderRadius: 5,
+      paddingHorizontal: Metrics.marginHorizontal,
+      backgroundColor: "#5a5aff22"
+    },
+    datePickerContainer: {
+      height: 48,
+      width: 270,
+      marginHorizontal: Metrics.section,
+      marginTop: Metrics.baseMargin,
+      borderRadius: 5,
+      paddingHorizontal: Metrics.marginHorizontal,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: "#5a5aff22"
     }
   },
   darkLabelContainer: {

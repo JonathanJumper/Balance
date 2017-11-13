@@ -16,7 +16,7 @@ import colors from '../Themes/Colors'
 class HomeScreen extends Component {
   render () {
     const { navigate } = this.props.navigation;
-    return <View style={styles.homeContainer}>
+    return <View style={styles.container}>
         <Header backgroundColor={"#fff"}
           leftComponent={<HeaderButton iconName="ios-calculator-outline" onPress={() => navigate('CalculateScreen')} /> }
           centerComponent={{ text: "Estadisticas", style: { color: colors.primary } }}

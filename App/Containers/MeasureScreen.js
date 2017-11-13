@@ -5,6 +5,7 @@ import { Header } from "react-native-elements"
 import HeaderButton from "../Components/HeaderButton"
 import RoundedButton from "../Components/RoundedButton"
 import ValuesActions, { addSugarLevel } from "../Redux/ValuesRedux"
+import DatePicker from 'react-native-datepicker'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -18,17 +19,35 @@ class MeasureScreen extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      sugarLevel: -1, 
-      datetime: "200-02" 
+      sugarLevel: 0, 
+      date: this.getDatetime()
     };
   }
 
   static defaultProps = {
-    calculatedInsuline: -1
+    calculatedInsuline: 23
+  }
+
+  getDatetime() {
+    let moment = require('moment');
+    moment.locale('de');
+    let date = Date.now();
+    let formattedDate = moment(date).format('LLL');
+    return formattedDate
   }
 
   addSugarLevel = () => {
-    this.props.addTheSugarLevel({sugarLevel: this.state.sugarLevel, datetime: this.state.datetime })
+    if (!this.state.sugarLevel) {
+      alert("Ingrese una cantidad")
+    }
+    else if (this.state.sugarLevel < 10 || this.state.sugarLevel > 10) {
+      alert("Ingrese una cantidad valida")
+    }
+    else {
+      const { navigate } = this.props.navigation
+      this.props.addTheSugarLevel({ sugarLevel: Number.parseInt(this.state.sugarLevel), date: this.state.date })
+      navigate('HomeScreen')
+    }
   }
 
   render () {
@@ -40,17 +59,30 @@ class MeasureScreen extends Component {
           centerComponent={{ text: "Registrar Evento", style: { color: colors.primary } }}
         />
 
-        <Text style={{ padding: 10, fontSize: 14 }}>
+        <Text style={styles.sectionText}>
           Tu nivel recomendado de insulina a aplicar es de {this.props.calculatedInsuline}. Registrar un valor de: 
         </Text>
 
-        <TextInput style={{ height: 40 }}
-        placeholder={ String(this.props.calculatedInsuline) }
-          onChangeText={ (sugarLevel) => this.setState({ sugarLevel }) }
+        <TextInput style={styles.textInput}
+          placeholder={ String(this.props.calculatedInsuline) }
+          onChangeText={(sugarLevel) => this.setState({ sugarLevel })}
+          keyboardType='numeric' 
         />
-       
+
+        <DatePicker
+          style={styles.datePickerContainer}
+          customStyles={{ dateInput: { borderWidth: 0 } }}
+          date={this.state.date}
+          mode="datetime"
+          format="MMMM Do YYYY, h:mm:ss a"
+          confirmBtnText="Confirmar"
+          cancelBtnText="Cancelar"
+          showIcon={false}
+          onDateChange={(date) => { this.setState({ date: date }) }}
+        />
+
       <RoundedButton 
-        onPress={this.addSugarLevel} style={{ backgroundColor: '#10f1f0' }}>
+        onPress={this.addSugarLevel}>
         Registrar Medicion
       </RoundedButton>
 

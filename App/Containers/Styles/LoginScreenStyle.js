@@ -3,6 +3,11 @@ import { ApplicationStyles, Colors, Metrics } from "../../Themes/";
 
 export default StyleSheet.create({
   ...ApplicationStyles.screen,
+  container: {
+    flex: 1,
+    flexGrow: 1,
+    backgroundColor: "#fff"
+  },
   header: {
      flex: 0.25,
      backgroundColor: Colors.primary,
@@ -13,17 +18,7 @@ export default StyleSheet.create({
   body: {
      flex: 0.75,
      justifyContent: 'flex-end',
-     backgroundColor: '#ffffff'
-  },
-  scrollContainer: {
-    flex: 1
-  },
-  textInput: {
-    height: 50,
-    marginHorizontal: Metrics.section,
-    marginVertical: Metrics.baseMargin,
-    borderRadius: 5,
-    paddingHorizontal: Metrics.marginHorizontal,
-    backgroundColor: "#5a5aff22"
+     backgroundColor: '#ffffff',
+     marginBottom: 30
   }
 })

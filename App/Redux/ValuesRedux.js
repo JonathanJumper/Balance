@@ -13,17 +13,22 @@ export default Creators
 /* ------------- Initial State ------------- */
 
 export const INITIAL_STATE = Immutable({
-   sugarLevels: []
+   sugarLevels: [
+      { sugarLevel: 96, date: "November 11, 2017 9:10 AM" },
+      { sugarLevel: 104, date: "November 11, 2017 9:10 AM" },
+      { sugarLevel: 132, date: "November 11, 2017 9:10 AM" },
+      { sugarLevel: 82, date: "November 11, 2017 9:10 AM" },
+      { sugarLevel: 140, date: "November 11, 2017 9:10 AM" },
+      { sugarLevel: 101, date: "November 11, 2017 9:10 AM" },
+      { sugarLevel: 70, date: "November 11, 2017 9:10 AM" },
+      { sugarLevel: 82, date: "November 11, 2017 9:10 AM" }
+    ]
 })
 
 /* ------------- Reducers ------------- */
 
 // failed to get the avatar
 export const addSugarLevel = (state, { sugarLevel }) => {
-   console.tron.log({
-      message: 'akaka',
-      action: sugarLevel
-   })
    return state.merge({ sugarLevels: [...state.sugarLevels, sugarLevel] })
 }
 /* ------------- Hookup Reducers To Types ------------- */
