@@ -1,19 +1,12 @@
 import React, { Component } from "react"
 import { Text,  TouchableOpacity,  View } from "react-native"
 import Change from "./Change"
-import styles from "./Styles/MeasureStyle"
+import { connect } from 'react-redux'
 
-// Get screen width
+import Icon from "react-native-vector-icons/Ionicons"
+import styles from "./Styles/MeasureRowStyle"
 
-export default class Measure extends Component {
-  props: {
-    symbol: string,
-    measure: string,
-    date: string,
-    change: number,
-    active: boolean,
-    onPress: Function
-  }
+class MeasureRow extends Component {
 
   static defaultProps = {
     active: false
@@ -25,16 +18,21 @@ export default class Measure extends Component {
   }
 
   render() {
-    const { symbol, measure, date, change, active } = this.props
+    const { measure, date, highSugarLevel, lowSugarLevel, active } = this.props
+    let change;
+    if (measure > highSugarLevel ){
+      change = measure - highSugarLevel;
+    }
+    else if (measure < lowSugarLevel){
+      change = measure - lowSugarLevel;
+    }
     return <TouchableOpacity style={[styles.container, active ? styles.active : {}]} onPress={this.onPress}>
         <View style={styles.row}>
           <Text style={styles.text} numberOfLines={1}>
             {measure} mg/dl
           </Text>
           <View style={styles.right}>
-            <Text style={styles.text} numberOfLines={1}>
-              {symbol}
-            </Text>
+          <Icon style={styles.icon} name="md-finger-print" />
           </View>
         </View>
 
@@ -49,3 +47,17 @@ export default class Measure extends Component {
       </TouchableOpacity>
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    highSugarLevel: state.values.static.highSugarLevel,
+    lowSugarLevel: state.values.static.lowSugarLevel
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MeasureRow)

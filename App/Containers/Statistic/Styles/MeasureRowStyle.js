@@ -25,6 +25,10 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: "500"
   },
+  icon: {
+    color: "#fff",
+    fontSize: 16,
+  },
   date: {
     color: "#ccc",
     fontSize: 12,

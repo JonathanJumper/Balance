@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { Header } from "react-native-elements"
 import { connect } from 'react-redux'
-import List from "./Statistic/List"
 import Chart from "./Statistic/Chart"
+import EventList from "./Statistic/EventList"
 import HeaderButton from "../Components/HeaderButton"
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
@@ -23,7 +23,7 @@ class HomeScreen extends Component {
           rightComponent={<HeaderButton iconName="ios-create-outline" onPress={() => navigate('MeasureScreen')} />}
         />
         <Chart/>
-        <List />
+        <EventList />
       </View>
   }
 }

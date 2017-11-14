@@ -14,9 +14,7 @@ class Graph extends Component {
     axisColor: colors.chartAxis, // semi-transparent violet
     fillColor: colors.chartFill,
     strokeColor: colors.chartStroke,
-    strokeWidth: 1,
-    bottomAxis: 70,
-    topAxis: 150
+    strokeWidth: 1
   }
 
   constructor(props) {
@@ -180,6 +178,8 @@ const mapStateToProps = (state) => {
   return {
     events: state.values.events,
     sugarValues: state.values.events.filter(event => event.type == 1).map(x => x.sugarLevel),
+    topAxis: state.values.static.highSugarLevel,
+    bottomAxis: state.values.static.lowSugarLevel
   }
 }
 
