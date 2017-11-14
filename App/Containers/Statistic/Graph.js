@@ -7,13 +7,6 @@ import colors from "../../Themes/Colors"
 import Icon from "react-native-vector-icons/Ionicons"
 
 class Graph extends Component {
-  props: {
-    values: Array<number>,
-    fillColor: string,
-    strokeColor: string,
-    axisColor: string,
-    strokeWidth: number
-  }
 
   static defaultProps = {
     fillColor: "#fff", // solid violet color
@@ -27,12 +20,13 @@ class Graph extends Component {
   }
 
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       width: Dimensions.get("window").width, 
       height: 0,
       minValue: 40,
-      maxValue: Math.max(...props.sugarValues),
+      // max value - min value + padding
+      maxValue: Math.max(...props.sugarValues) - 40 + 10,
       stepX: 0,
       stepY: 0
     };
@@ -121,7 +115,7 @@ class Graph extends Component {
     const { width, minValue, stepY } = this.state
     return (
       Path().moveTo(0, -(topAxis - minValue) * stepY - strokeWidth).lineTo(width, -(topAxis - minValue) * stepY - strokeWidth)
-        .moveTo(0, -(bottomAxis - minValue) * stepY - strokeWidth).lineTo(width, -(bottomAxis - minValue) * stepY - strokeWidth).close()
+        .moveTo(0, -(bottomAxis - minValue) * stepY - strokeWidth).lineTo(width, -(bottomAxis - minValue) * stepY - strokeWidth)
     )
   }
 
@@ -132,13 +126,13 @@ class Graph extends Component {
 
     let path = Path()
     events.forEach((event, index) => {
-      if (event.type == 2) {
+      if (event.type == 2 || event.type == 3 ) {
         let xAxis = index * stepX
         path.moveTo(xAxis, -height).lineTo(xAxis, 0)
       }
     })
     return (
-      path.close()
+      path
     )
   }
 
@@ -159,18 +153,16 @@ class Graph extends Component {
               d={this.buildAxisPath()}
               stroke={colors.chartSugarAxis}
               strokeWidth={1}
-              strokeDash= {[5, 10]}
+              strokeDash= {[5, 25]}
             />
             <Shape
               d={this.buildExerciseAxisPath()}
               stroke={colors.chartExcerciseAxis}
               strokeWidth={1}
-              strokeDash={[5, 10]}
+              strokeDash={[2, 25]}
             />
           </Group>
         </Surface>
-        
-        <Icon name={"ios-walk"} size={16} style={{ backgroundColor: colors.primary, color: "#fff" }} />
       </View>
     )
   }

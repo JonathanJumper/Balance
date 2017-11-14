@@ -15,21 +15,20 @@ export default Creators
 export const INITIAL_STATE = Immutable({
    events: [
       { type: 1, sugarLevel: 96, date: "November 11, 2017 9:10 AM" },
-      { type: 1, sugarLevel: 104, date: "November 11, 2017 9:10 AM" },
-      { type: 2, intensity: 4, duration: 120, date: "November 11, 2017 9:10 AM" },
-      { type: 1, sugarLevel: 132, date: "November 11, 2017 9:10 AM" },
-      { type: 1, sugarLevel: 156, date: "November 11, 2017 9:10 AM" },
+      { type: 3, food_id: 1, date: "November 11, 2017 11:15 AM" },
+      { type: 1, sugarLevel: 122, date: "November 11, 2017 9:10 AM" },
       { type: 2, intensity: 3, duration: 120, date: "November 11, 2017 9:10 AM" },
-      { type: 1, sugarLevel: 169, date: "November 11, 2017 9:10 AM" },
-      { type: 1, sugarLevel: 123, date: "November 11, 2017 9:10 AM" },
-      { type: 1, sugarLevel: 140, date: "November 11, 2017 9:10 AM" },
-      { type: 1, sugarLevel: 101, date: "November 11, 2017 9:10 AM" },
       { type: 1, sugarLevel: 62, date: "November 11, 2017 9:10 AM" },
+      { type: 1, sugarLevel: 85, date: "November 11, 2017 9:10 AM" },
+      { type: 3, food_id: 1, date: "November 11, 2017 11:15 AM" },
+      { type: 1, sugarLevel: 162, date: "November 11, 2017 9:10 AM" },
+      { type: 1, sugarLevel: 124, date: "November 11, 2017 9:10 AM" },
+      { type: 3, food_id: 1, date: "November 11, 2017 11:15 AM" },
+      { type: 1, sugarLevel: 145, date: "November 11, 2017 9:10 AM" },
+      { type: 1, sugarLevel: 169, date: "November 11, 2017 9:10 AM" },
+      { type: 1, sugarLevel: 122, date: "November 11, 2017 9:10 AM" },
       { type: 2, intensity: 2, duration: 120, date: "November 11, 2017 9:10 AM" },
-      { type: 1, sugarLevel: 82, date: "November 11, 2017 9:10 AM" },
-      { type: 1, sugarLevel: 150, date: "November 11, 2017 9:10 AM" },
-      { type: 2, intensity: 2, duration: 120, date: "November 11, 2017 9:10 AM" },
-      { type: 1, sugarLevel: 70, date: "November 11, 2017 9:10 AM" }
+      { type: 1, sugarLevel: 78, date: "November 11, 2017 9:10 AM" },
     ]
 })
 
