@@ -1,12 +1,12 @@
-
 import React, { Component } from "react"
 import { Dimensions, LayoutAnimation, StyleSheet, View } from "react-native"
 import { Group, Path, Surface, Shape } from "react-native/Libraries/ART/ReactNativeART"
+import { connect } from 'react-redux'
+
 import colors from "../../Themes/Colors"
 import Icon from "react-native-vector-icons/Ionicons"
 
-
-export default class Line extends Component {
+class Graph extends Component {
   props: {
     values: Array<number>,
     fillColor: string,
@@ -28,15 +28,13 @@ export default class Line extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       width: Dimensions.get("window").width, 
       height: 0,
-      minValue: 30, 
-      // max sugar level - min value
-      maxValue: Math.max(...props.values.sugarValues) - 30,
+      minValue: 40,
+      maxValue: Math.max(...props.sugarValues),
       stepX: 0,
-      stepY: 0,
-      execiseIconsXAxis: []
+      stepY: 0
     };
   }
 
@@ -59,7 +57,7 @@ export default class Line extends Component {
     // pull out width and height out of event.nativeEvent.layout
     const { nativeEvent: { layout: { width, height } } } = event
     // step between each value point on horizontal (x) axis
-    stepX = width / (this.props.values.sugarValues.length - 1 || 1)
+    stepX = width / (this.props.events.length - 1 || 1)
     // step between each value point on vertical (y) axis
     stepY = this.state.maxValue ? (height - this.props.strokeWidth * 2) / this.state.maxValue : 0,
     // update the state
@@ -72,38 +70,49 @@ export default class Line extends Component {
   }
 
   buildGraphPath = (values: Array<number>): Path => {
-    const { strokeWidth } = this.props
+    const { events, sugarValues, strokeWidth } = this.props
     const { width, height, minValue, maxValue, stepX, stepY } = this.state
-
+    
     let firstPoint: boolean = true
     // holds x and y coordinates of the previous point when iterating
     let previous: { x: number, y: number }
     // adjust values so that min value becomes 0 and goes to the bottom edge
-    const adjustedValues = values.map(value => value - minValue)
+    const adjustedValues = sugarValues.map(value => value - minValue)
+
     // start from the left bottom corner so we could fill the area with color
     let path = Path().moveTo(-strokeWidth, strokeWidth)
     
-    let execiseIconsXAxis = []
-    adjustedValues.forEach((number, index) => {
-      let x = index * stepX,
-        y = -number * stepY - strokeWidth
-      if (firstPoint) {
-        // straight line to the first point
-        path.lineTo(-strokeWidth, y)
-      } else {
-        // make curved line
-        path.curveTo(previous.x + stepX / 3, previous.y, x - stepX / 3, y, x, y)
-      }
-      // save current x and y coordinates for the next point
-      previous = { x, y }
-      firstPoint = false
-    })
+    let sugarIndex = 0
+    excerciseStepOffset = 1
 
+    events.forEach((event, index) => {
+      // check type and build graph
+      // 1 == insulin application
+      // 2 == excercise value
+      if (event.type == 1){
+
+        let number = adjustedValues[sugarIndex]
+        sugarIndex += 1;
+
+        let x = index * stepX,
+          y = -number * stepY - strokeWidth
+        if (firstPoint) {
+          // straight line to the first point
+          path.lineTo(-strokeWidth, y)
+        } else {
+          // make curved line
+          path.curveTo(previous.x + stepX / 3, previous.y, x - stepX / 3, y, x, y)
+        }
+        // save current x and y coordinates for the next point
+        previous = { x, y }
+        firstPoint = false
+      }
+      // TODO make excercise value to more accurate graph
+    })
     return (
       path
         // line to the right bottom corner so we could fill the area with color
-        .lineTo(width + strokeWidth, strokeWidth)
-        .close()
+        .lineTo(width + strokeWidth, strokeWidth).close()
     )
   }
 
@@ -118,37 +127,34 @@ export default class Line extends Component {
 
 
   buildExerciseAxisPath = (values: Array<boolean>): Path => {
+    const { events, strokeWidth } = this.props
     const { height, stepX } = this.state
 
-    let exerciseIconsXAxis = []
     let path = Path()
-    values.forEach((flag, index) => {
-      if (flag) {
-        // straight line to the first point
+    events.forEach((event, index) => {
+      if (event.type == 2) {
         let xAxis = index * stepX
         path.moveTo(xAxis, -height).lineTo(xAxis, 0)
-        exerciseIconsXAxis.push(xAxis)
       }
     })
-    //this.setState(exerciseIconsXAxis)
     return (
       path.close()
     )
   }
 
   render() {
-    const { values, fillColor, strokeColor, strokeWidth, axisColor } = this.props
-    const { width, height, execiseIconsXAxis } = this.state
+    const { sugarValues, fillColor, strokeColor, strokeWidth, axisColor } = this.props
+    const { width, height } = this.state
     return (
       <View style={styles.container} onLayout={this.onLayout}>
         <Surface width={width} height={height}>
           <Group x={0} y={height}>
             <Shape
-              d={this.buildGraphPath(values.sugarValues)}
+              d={this.buildGraphPath(sugarValues)}
               fill={colors.chartFill}
               stroke={colors.chartStroke}
               strokeWidth={0}
-            />
+            /> 
             <Shape
               d={this.buildAxisPath()}
               stroke={colors.chartSugarAxis}
@@ -156,7 +162,7 @@ export default class Line extends Component {
               strokeDash= {[5, 10]}
             />
             <Shape
-              d={this.buildExerciseAxisPath(values.excerciseValues)}
+              d={this.buildExerciseAxisPath()}
               stroke={colors.chartExcerciseAxis}
               strokeWidth={1}
               strokeDash={[5, 10]}
@@ -177,3 +183,17 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end"
   }
 })
+
+const mapStateToProps = (state) => {
+  return {
+    events: state.values.events,
+    sugarValues: state.values.events.filter(event => event.type == 1).map(x => x.sugarLevel),
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Graph)

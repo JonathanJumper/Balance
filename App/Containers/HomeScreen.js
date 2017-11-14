@@ -22,14 +22,14 @@ class HomeScreen extends Component {
           centerComponent={{ text: "Estadisticas", style: { color: colors.primary } }}
           rightComponent={<HeaderButton iconName="ios-create-outline" onPress={() => navigate('MeasureScreen')} />}
         />
-        <Chart />
+        <Chart/>
         <List />
       </View>
   }
 }
 
 const mapStateToProps = (state) => {
-  return {
+  return { 
   }
 }
 

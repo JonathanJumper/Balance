@@ -40,12 +40,12 @@ class MeasureScreen extends Component {
     if (!this.state.sugarLevel) {
       alert("Ingrese una cantidad")
     }
-    else if (this.state.sugarLevel < 10 || this.state.sugarLevel > 10) {
+    else if (this.state.sugarLevel < 10 || this.state.sugarLevel > 200) {
       alert("Ingrese una cantidad valida")
     }
     else {
       const { navigate } = this.props.navigation
-      this.props.addTheSugarLevel({ sugarLevel: Number.parseInt(this.state.sugarLevel), date: this.state.date })
+      this.props.addTheSugarLevel({ type: 1, sugarLevel: Number.parseInt(this.state.sugarLevel), date: this.state.date })
       navigate('HomeScreen')
     }
   }
