@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Text,  TouchableOpacity,  View } from "react-native"
+import { Text, TouchableOpacity, View } from "react-native"
 import Change from "./Change"
 import { connect } from 'react-redux'
 
@@ -32,7 +32,7 @@ class MeasureRow extends Component {
             {measure} mg/dl
           </Text>
           <View style={styles.right}>
-          <Icon style={styles.icon} name="md-finger-print" />
+          <Icon style={styles.icon} name="ios-water" />
           </View>
         </View>
 

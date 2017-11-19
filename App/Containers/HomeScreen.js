@@ -6,21 +6,28 @@ import Chart from "./Statistic/Chart"
 import EventList from "./Statistic/EventList"
 import HeaderButton from "../Components/HeaderButton"
 
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+
+import ValuesActions from "../Redux/ValuesRedux"
 
 // Styles
 import styles from './Styles/HomeScreenStyle'
 import colors from '../Themes/Colors'
 
 class HomeScreen extends Component {
+
+  goToAddEventScreen = () => {
+    const { navigate } = this.props.navigation;
+    this.props.addTheCalculatedInsuline(0)
+    navigate('AddEventScreen')
+  }
+
   render () {
     const { navigate } = this.props.navigation;
     return <View style={styles.container}>
         <Header backgroundColor={"#fff"}
           leftComponent={<HeaderButton iconName="ios-calculator-outline" onPress={() => navigate('CalculateScreen')} /> }
           centerComponent={{ text: "Estadisticas", style: { color: colors.primary } }}
-          rightComponent={<HeaderButton iconName="ios-create-outline" onPress={() => navigate('MeasureScreen')} />}
+          rightComponent={<HeaderButton iconName="ios-create-outline" onPress={() => this.goToAddEventScreen()} />}
         />
         <Chart/>
         <EventList />
@@ -35,6 +42,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    addTheCalculatedInsuline: (calculatedInsuline) => {
+      dispatch(ValuesActions.addCalculatedInsuline(calculatedInsuline))
+    }
   }
 }
 

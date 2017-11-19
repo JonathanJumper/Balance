@@ -1,6 +1,6 @@
 import React from "react"
 import { StackNavigator, TabNavigator } from 'react-navigation'
-import MeasureScreen from '../Containers/MeasureScreen'
+import AddEventScreen from '../Containers/AddEventScreen'
 import CalculateScreen from '../Containers/CalculateScreen'
 import GuideScreen from '../Containers/GuideScreen'
 import SettingsScreen from '../Containers/SettingsScreen'
@@ -91,8 +91,8 @@ const LoginNavigation = StackNavigator(
   { 
     //LaunchScreen: { screen: LaunchScreen},
     Home: { screen: MainNavigation, },
+    AddEventScreen: { screen: AddEventScreen },
     LoginScreen: { screen: LoginScreen },
-    MeasureScreen: { screen: MeasureScreen },
     CalculateScreen: { screen: CalculateScreen }
   },
   {

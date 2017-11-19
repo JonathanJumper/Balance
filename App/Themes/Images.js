@@ -2,6 +2,8 @@
 const images = {
   logo: require('../Images/ir.png'),
   balance: require('../Images/balance.png'),
+  sugarLevel: require('../Images/Icons/sugar-level.png'),
+  bloodLevel: require('../Images/Icons/blood-level.png'),
   clearLogo: require('../Images/top_logo.png'),
   launch: require('../Images/launch-icon.png'),
   ready: require('../Images/your-app.png'),
