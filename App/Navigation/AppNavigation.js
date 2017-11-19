@@ -75,8 +75,8 @@ const MainNavigation = TabNavigator(
     swipeEnabled: true,
     tabBarOptions: {
         showIcon: true,
-        activeTintColor: "#fff",
-        inactiveTintColor:'#aaa',
+        activeTintColor: Colors.navigationActive,
+        inactiveTintColor: Colors.navigationInactive,
         style: {
             backgroundColor: Colors.primary,
         },

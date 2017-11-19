@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { Header } from "react-native-elements"
 import { connect } from 'react-redux'
 import RoundedButton from "../Components/RoundedButton"
-
-// Add Actions - replace 'Your' with whatever your reducer is called :)
-// import YourActions from '../Redux/YourRedux'
+import HeaderButton from "../Components/HeaderButton"
 
 // Styles
 import styles from './Styles/SettingsScreenStyle'
+import colors from '../Themes/Colors'
 
 class SettingsScreen extends Component {
   render () {
@@ -15,7 +15,11 @@ class SettingsScreen extends Component {
     return (
       <ScrollView style={styles.container}>
         <KeyboardAvoidingView behavior='position'>
-          <RoundedButton onPress={() => navigate("LoginScreen")}>Cerrar Sesión</RoundedButton>
+          <Header backgroundColor={"#fff"}
+            leftComponent={<HeaderButton iconName="ios-more-outline" />}
+            centerComponent={{ text: "Preferencias", style: { color: colors.primary } }} 
+            rightComponent={<HeaderButton iconName="ios-log-out" onPress={() => navigate("LoginScreen")} />}
+          />
         </KeyboardAvoidingView>
       </ScrollView>
     )

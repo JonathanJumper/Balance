@@ -40,14 +40,13 @@ class GraphFooter extends Component {
             {events.map((event, index) => {
                const leftOffset = index * stepX - 4
                if (event.type == 2) {
-                  return <Icon name={"md-walk"} size={16} style={{ position: 'absolute', top: 4, left: leftOffset, backgroundColor: colors.primary, color: "#fff" }} />
+                  return <Icon key={index} name={"md-walk"} size={16} style={{ position: 'absolute', top: 4, left: leftOffset, backgroundColor: colors.primary, color: "#fff" }} />
                }
                else if (event.type == 3) {
-                  return <Icon name={"ios-nutrition"} size={16} style={{ position: 'absolute', top: 4, left: leftOffset, backgroundColor: colors.primary, color: "#fff" }} />
+                  return <Icon key={index} name={"ios-nutrition"} size={16} style={{ position: 'absolute', top: 4, left: leftOffset, backgroundColor: colors.primary, color: "#fff" }} />
                }
             }
             )}
-            
          </View>
       )
    }

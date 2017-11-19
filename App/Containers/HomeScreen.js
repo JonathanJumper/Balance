@@ -26,7 +26,7 @@ class HomeScreen extends Component {
     return <View style={styles.container}>
         <Header backgroundColor={"#fff"}
           leftComponent={<HeaderButton iconName="ios-calculator-outline" onPress={() => navigate('CalculateScreen')} /> }
-          centerComponent={{ text: "Estadisticas", style: { color: colors.primary } }}
+          centerComponent={{ text: "Estadisticas", style: { color: colors.headerFont } }}
           rightComponent={<HeaderButton iconName="ios-create-outline" onPress={() => this.goToAddEventScreen()} />}
         />
         <Chart/>

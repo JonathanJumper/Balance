@@ -23,7 +23,7 @@ export default class HeaderButton extends Component {
    render() {
       return (
          <TouchableOpacity onPress={this.props.onPress} style={{paddingTop: 5, paddingHorizontal: 10}}>
-            <Icon name={this.props.iconName} size={26} style={{ color: colors.primary }} />
+            <Icon name={this.props.iconName} size={20} style={{ color: colors.headerFont }} />
          </TouchableOpacity>
       )
    }
