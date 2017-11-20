@@ -22,7 +22,7 @@ export const INITIAL_STATE = Immutable({
       { type: 2, intensity: 3, duration: 120, date: "November 9th, 2017 4:20 PM" },
       { type: 1, sugarLevel: 62, date: "November 9th, 2017 6:31 PM" },
       { type: 1, sugarLevel: 85, date: "November 10th, 2017 7:24 AM" },
-      { type: 3, meal_id: 2, date: "November 10th, 2017 11:15 AM" },
+      { type: 3, meal_id: 2, carbohydrates: 87, date: "November 10th, 2017 11:15 AM" },
       { type: 1, sugarLevel: 162, date: "November 10th, 2017 12:21 PM" },
       { type: 1, sugarLevel: 124, date: "November 10th, 2017 3:15 PM" },
       { type: 3, meal_id: 3, carbohydrates: 92, date: "November 10th, 2017 5:38 PM" },

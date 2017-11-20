@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { KeyboardAvoidingView } from 'react-native'
 import { Header } from "react-native-elements"
 import { connect } from 'react-redux'
 import RoundedButton from "../Components/RoundedButton"
 import HeaderButton from "../Components/HeaderButton"
+import CardProfile from "./Card/CardProfile"
+import CardConfig from "./Card/CardConfig"
+import CardAbout from "./Card/CardAbout"
 
 // Styles
 import styles from './Styles/SettingsScreenStyle'
@@ -13,15 +16,16 @@ class SettingsScreen extends Component {
   render () {
     const { navigate } = this.props.navigation
     return (
-      <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
+      <KeyboardAvoidingView style={styles.container}>
           <Header backgroundColor={"#fff"}
             leftComponent={<HeaderButton iconName="ios-more-outline" />}
             centerComponent={{ text: "Preferencias", style: { color: colors.primary } }} 
             rightComponent={<HeaderButton iconName="ios-log-out" onPress={() => navigate("LoginScreen")} />}
           />
-        </KeyboardAvoidingView>
-      </ScrollView>
+          <CardProfile />
+          <CardConfig />
+          <CardAbout />
+      </KeyboardAvoidingView>
     )
   }
 }
