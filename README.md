@@ -1,7 +1,13 @@
 #  Balance
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](http://standardjs.com/)
 
-* Standard compliant React Native App Utilizing [Ignite](https://github.com/infinitered/ignite)
+## :scroll:
+
+Developed for Interdisciplinary Project Workshop (TPI), National University of Colombia
+
+MIT License
+
+![Demo](/demo.png?raw=true)
 
 ## :arrow_up: How to Setup
 
