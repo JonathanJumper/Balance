@@ -32,27 +32,14 @@ class AddMeasure extends Component {
       return formattedDate
    }
 
-   addSugarLevel = () => {
-      if (!this.state.sugarLevel) {
-         alert("Ingrese una cantidad")
-      }
-      else if (this.state.sugarLevel < 10 || this.state.sugarLevel > 200) {
-         alert("Ingrese una cantidad valida")
-      }
-      else {
-         const { navigate } = this.props.navigation
-         this.props.addTheSugarLevel({ type: 1, sugarLevel: Number.parseInt(this.state.sugarLevel), date: this.state.date })
-         navigate('HomeScreen')
-      }
-   }
-
    render() {
       const { navigate } = this.props.navigation
+      let message = (this.props.typeOfEvent == 5) ? "Tu nivel recomendado de insulina a aplicar es de " + this.props.calculatedInsuline + ". Desea registrar un valor aplicado de: " : "No se realizo el calculo de carbohidratos. Desea registrar un valor de insulina aplicada de: "
       return (
          <KeyboardAvoidingView style={styles.container}>
 
             <Text style={styles.sectionText}>
-               Favor Ingrese el nivel de azucar actual en sangre
+               {message}
             </Text>
 
             <TextInput style={styles.textInput}
@@ -74,8 +61,8 @@ class AddMeasure extends Component {
             />
 
             <RoundedButton
-               onPress={this.addSugarLevel}>
-               Registrar Medicion
+               onPress={() => navigate('HomeScreen')}>
+               Registrar Aplicación
             </RoundedButton>
 
          </KeyboardAvoidingView>
@@ -91,7 +78,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
    return {
-      addTheSugarLevel: (sugarLevel) => { dispatch(ValuesActions.addSugarLevel(sugarLevel)) }
    }
 }
 

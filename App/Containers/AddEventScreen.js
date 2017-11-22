@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, TextInput, KeyboardAvoidingView } from 'react-native'
+import { ScrollView, Text, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
-import { Header } from "react-native-elements"
+import { Header, Card } from "react-native-elements"
 import HeaderButton from "../Components/HeaderButton"
 import RoundedButton from "../Components/RoundedButton"
 import ValuesActions, { addSugarLevel } from "../Redux/ValuesRedux"
 import DatePicker from 'react-native-datepicker'
 import AddMeasure from './AddEvent/AddMeasure'
+import AddInsuline from './AddEvent/AddInsuline'
+import CardEvent from './Card/CardEvent'
 
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -21,11 +23,9 @@ class AddEventScreen extends Component {
     super(props);
 
     if (props.calculatedInsuline){
-      // event of type 1 : new measure
-      typeOfEvent = 1;
+      typeOfEvent = 5
     }
     else {
-      // unknown type of event
       typeOfEvent = 0
     }
 
@@ -36,11 +36,27 @@ class AddEventScreen extends Component {
 
   render () {
     const { navigate } = this.props.navigation
-    if (typeOfEvent == 1 || typeOfEvent == 2){
-      body = <AddMeasure navigation={navigate} />
+    if (this.state.typeOfEvent == 1) {
+      body = <AddMeasure calculatedInsuline={this.props.calculatedInsuline} navigation={this.props.navigation} />
+    }
+    else if ( this.state.typeOfEvent == 4 || this.state.typeOfEvent == 5 ){
+      body = <AddInsuline typeOfEvent={this.state.typeOfEvent} navigation={this.props.navigation} />
     }
     else {
-      body = <KeyboardAvoidingView></KeyboardAvoidingView>
+      body = <KeyboardAvoidingView>
+        <TouchableOpacity onPress={() => this.setState({ typeOfEvent: 1 }) }>
+          <CardEvent title="Agregar Medición" name="ios-water" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.setState({ typeOfEvent: 4 })}>
+          <CardEvent title="Agregar Aplicación" name="ios-thermometer-outline"/>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <CardEvent title="Agregar Alimentación" name="ios-nutrition" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <CardEvent title="Agregar Ejercicio" name="md-walk" />
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     }
     return (
       <ScrollView style={styles.container}>

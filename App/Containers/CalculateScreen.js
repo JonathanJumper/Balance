@@ -15,7 +15,7 @@ class CalculateScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      calculatedInsuline: 1,
+      calculatedInsuline: 7,
     }
   }
 
@@ -37,6 +37,7 @@ class CalculateScreen extends Component {
         <Header backgroundColor={"#fff"}
           leftComponent={<HeaderButton iconName="ios-arrow-back" onPress={() => navigate('HomeScreen')} />}
           centerComponent={{ text: "Calcular Toma", style: { color: colors.primary } }}
+          rightComponent={<HeaderButton iconName="ios-swap" onPress={() => navigate('HomeScreen')} />}
         />
 
         <RoundedButton
